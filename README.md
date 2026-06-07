@@ -1,45 +1,35 @@
 # llm-tools
 
-Collection of utilities for working with LLMs and AI APIs.
-
-```bash
-pip install llm-tools
-```
+Lightweight utilities for working with LLMs and AI APIs.
 
 ## Features
 
-- Unified client for OpenAI and Anthropic APIs
-- Prompt engineering utilities
-- Token estimation and truncation
-- Response parsing helpers
+- Simple chat client wrapper (OpenAI-compatible)
+- Prompt formatting helpers
+- Message history truncation
+
+## Install
+
+```
+pip install -r requirements.txt
+```
 
 ## Usage
 
 ```python
-from llm_tools import get_client
+from llm_client import LLMClient
+from prompt_utils import system_prompt
 
-# OpenAI
-client = get_client("openai", model="gpt-4")
-resp = client.chat([{"role": "user", "content": "Hello!"}])
-print(resp.content)
-```
+client = LLMClient(model="gpt-4o-mini")
 
-## Prompt Utils
+messages = [
+    system_prompt("a helpful assistant"),
+    {"role": "user", "content": "Explain embeddings in one paragraph."}
+]
 
-```python
-from llm_tools.prompt_utils import system_prompt, few_shot_prompt
-
-# System prompt
-msgs = [system_prompt("You are a helpful assistant.", ["Be concise"])]
-
-# Few-shot
-msgs = few_shot_prompt(
-    task="Translate to French",
-    examples=[{"input": "Hello", "output": "Bonjour"}],
-    query="Goodbye"
-)
+print(client.chat(messages))
 ```
 
 ## License
 
-MIT © 2026
+MIT
